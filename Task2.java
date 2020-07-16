@@ -11,35 +11,55 @@ public class Task2 {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите чило Фибоначчи: ");
         int value = scanner.nextInt();
-        calculateFibonacciByCycle(value);
+
+        fibonacciValues(value);
+
+        int fibonacciByCycle = calculateFibonacciByCycle(value);
+        System.out.println("Сумма циклическим методом - " + (fibonacciByCycle - 1));
+
+        int fibonacciByRecursion = calculateFibonacciByRecursion(value);
+        System.out.println("Сумма рекурсивным методом - " + (fibonacciByRecursion - 1));
     }
 
-    private static void calculateFibonacciByRecursion(int value) {
+    private static void fibonacciValues(int value){
         int value1 = 1;
         int value2 = 0;
         int sum;
-        System.out.print(1 + " ");
-        for (int i = 0; i < value; i++) {
-            value1 = value2;
-        }
-    }
+        System.out.print(value2 + " " + value1 + " ");
 
-    private static void calculateFibonacciByCycle(int value) {
-        int value1 = 1;
-        int value2 = 0;
-        int sum;
-        System.out.print(1 + " ");
-
-        for (int i = 0; i < value; i++) {
+        for (int i = 0; i < (value - 2); i++) {
             sum = value1 + value2;
             value2 = value1;
             value1 = sum;
-            if (sum > value) {
-                break;
-            } else {
-                System.out.print(sum + " ");
+            System.out.print(sum + " ");
+        }
+        System.out.println();
+    }
+
+    private static int calculateFibonacciByCycle(int value) {
+        int value1 = 1;
+        int value2 = 0;
+        int sum = 0;
+
+        while (sum < value) {
+            for (int i = 0; i < value; i++) {
+                sum = value1 + value2;
+                value2 = value1;
+                value1 = sum;
             }
         }
+        return sum;
+    }
+
+    public static int calculateFibonacciByRecursion(int value) {
+        if (value == 0){
+            return 1;
+        }
+        if (value == 1) {
+            return 1;
+        }
+        return calculateFibonacciByRecursion(value - 1) + calculateFibonacciByRecursion(value - 2);
     }
 }
